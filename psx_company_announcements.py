@@ -41,16 +41,31 @@ driver.switch_to.default_content()
 # Use XPath to find the element with the desired structure with explicit wait
 try:
     # Wait for the presence of the desired element with explicit wait
-    elements = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//table[@id='announcementsTable']/tbody[@class='tbl__body']/tr")))
-    
-    # Check if elements were found
-    if elements:
-        print(f"Found {len(elements)} rows.")
-        for element in elements:
-            print(element.text)
+    header_elements = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//table[@id='announcementsTable']/thead/tr/th")))
+    headers = [header.text.strip() for header in header_elements]
+
+    # Extract table rows
+    row_elements = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//table[@id='announcementsTable']/tbody[@class='tbl__body']/tr")))
+
+    # Initialize a list to hold row data
+    table_data = []
+
+    if row_elements:
+        print(f"Found {len(row_elements)} rows.")
+
+        for row_element in row_elements:
+            # Extract all the cells (td) within a row
+            cell_elements = row_element.find_elements(By.TAG_NAME, "td")
+            
+            # Create a dictionary for each row with headers as keys and cell text as values
+            row_data = {headers[i]: cell.text.strip() for i, cell in enumerate(cell_elements)}
+            
+            # Append the row data to the table data list
+            table_data.append(row_data)
     else:
         print("No elements found with the provided XPath.")
 
+    print("Table Data: \n", table_data)
 except Exception as e:
     print(f"An error occurred while waiting for elements: {e}")
 
