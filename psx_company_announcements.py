@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+from datetime import datetime
 
 # Set up Chrome options
 chrome_options = Options()
@@ -64,14 +65,34 @@ try:
             
             # Create a dictionary for each row with headers as keys and cell text as values
             row_data = {headers[i]: cell.text.strip() for i, cell in enumerate(cell_elements)}
+            del row_data['']
             
-            last_cell = cell_elements[-1]
+            # converting date time to epoch
+            datetime_str =  f"{row_data['DATE']} {row_data['TIME']}"
+            # Define the format for parsing the datetime string
+            datetime_format = "%b %d, %Y %I:%M %p"
 
-            # TODO: Check if 'View' is avaliable in last cell
-                # If yes, extract the 'data-images' attribute (it contains document id, which can be merged with sarmaya site)
-            # TODO: Check if pdf is available in last cell
-                # If yes, extract the link (it's a relative link, it can be combined with dps.psx.com.pk)
-            # TODO: Combine Date & Time to make a datetime attribute
+            # Parse the datetime string into a datetime object
+            datetime_obj = datetime.strptime(datetime_str, datetime_format)
+
+            row_data['EPOCH'] = int(datetime_obj.timestamp())
+            
+            # extracting image and pdf links
+            last_cell = cell_elements[-1]
+            links = last_cell.find_elements(By.XPATH, ".//a")
+            
+            for link in enumerate(links):
+                link_text = link[1].text
+                # Check if pdf is available in last cell
+                if link_text == 'PDF':
+                    row_data['PDF'] = link[1].get_attribute('href')
+                
+                # Check if 'View' is avaliable in last cell
+                elif link_text == 'View':
+                    image_base = "https://dps.psx.com.pk/download/image"
+                    image_id = link[1].get_attribute('data-images')
+                    row_data['VIEW'] = f"{image_base}/{image_id}"
+            
 
             # Append the row data to the table data list
             table_data.append(row_data)
