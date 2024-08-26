@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from datetime import datetime
+import os
 
 def scrap_psx_company_announcement_page():
     # URL of the webpage you want to scrape
@@ -18,8 +19,16 @@ def scrap_psx_company_announcement_page():
     chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
 
     # Set up Chrome WebDriver with options
+    # ----------------------------------------------------------------------------------------------------------    
+    # We can load from cache or install Chrome Driver
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
-
+    # ----------------------------------------------------------------------------------------------------------
+    # Else we can store Chrome Driver at a specified place and always access it
+    # project_root = os.path.dirname(os.path.abspath(__file__))
+    # file_path = os.path.join(project_root, 'bin', 'chromedriver.exe')
+    # driver = webdriver.Chrome(service=ChromeService(file_path), options=chrome_options)
+    # ----------------------------------------------------------------------------------------------------------
+    
     # Open the webpage
     driver.get(url)
 
