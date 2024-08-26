@@ -2,18 +2,22 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email_template import get_email_body
+from datetime import datetime
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Configuration
-port = 587
-smtp_server = "live.smtp.mailtrap.io"
-login = "api"  
-password = "e48e3afd023334b8440e944a12a2856f"
-
-sender_email = "Barking Stock <mailtrap@demomailtrap.com>"
-receiver_email = "A Test User <mshahzaib1629@gmail.com>"
+port = os.getenv("SMTP_PORT")
+smtp_server = os.getenv("SMTP_SERVER")
+login = os.getenv('MAIL_TRAP_LOGIN') 
+password = os.getenv("MAIL_TRAP_PASSWORD")
+sender_email = os.getenv("SENDER_EMAIL")
+receiver_email = "Shahzaib <mshahzaib1629@gmail.com>"
 
 # Email content
-subject = "HTML Email without Attachment"
+subject = f"Stock Announcement - {datetime.now().strftime('%Y-%m-%d %I:%M %p')}"
 html = get_email_body()
 
 # Create a multipart message and set headers
