@@ -1,5 +1,7 @@
-from psx_announcements import scrap_psx_company_announcement_page
+from app.app import App
 
 def lambda_handler(event, context):
-    announcements = scrap_psx_company_announcement_page()
+    app = App()
+    app.get_announcements()
+    announcements = app.announcements
     return announcements

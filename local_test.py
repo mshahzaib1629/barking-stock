@@ -2,8 +2,7 @@ import time
 import os
 import psutil
 
-from psx_announcements import scrap_psx_company_announcement_page
-
+from app.app import App
 
 def get_announcements():
     # Start the timer
@@ -17,8 +16,11 @@ def get_announcements():
     memory_usage_before = python_process.memory_info().rss / (1024 * 1024)
 
     # execute code
-    announcements = scrap_psx_company_announcement_page()
+    app = App()
+    app.get_announcements()
+    announcements = app.announcements
     print("Announcements: \n", announcements)
+    app.send_email_announcements()
     
     # Stop the timer
     end_time = time.time()
