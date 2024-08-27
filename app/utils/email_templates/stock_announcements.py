@@ -70,7 +70,7 @@ def _template():
                         {% endif %}
                     </p>
                     {% endif %}
-                    <p class="datetime"><strong>Date and Time:</strong> {{ announcement.DATE }} at {{ announcement.TIME }}</p>
+                    <p class="datetime">{{ announcement.DATE }} at <strong>{{ announcement.TIME }}</strong></p>
                 </div>
             </div>
             {% endfor %}

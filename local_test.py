@@ -18,8 +18,7 @@ def get_announcements():
     # execute code
     app = App()
     app.get_announcements()
-    announcements = app.announcements
-    print("Announcements: \n", announcements)
+    app.get_filtered_users()
     app.send_email_announcements()
     
     # Stop the timer

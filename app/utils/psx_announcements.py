@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 
 def scrap_psx_company_announcement_page():
@@ -31,7 +31,7 @@ def scrap_psx_company_announcement_page():
     
     # Open the webpage
     driver.get(url)
-
+    fetch_date_time_epoch = datetime.now(timezone.utc).timestamp().__floor__()
     # Apply an explicit wait to ensure the page has loaded
     wait = WebDriverWait(driver, 10)  # Wait up to 10 seconds for conditions
 
@@ -109,9 +109,11 @@ def scrap_psx_company_announcement_page():
         else:
             print("No elements found with the provided XPath.")
 
-        return table_data
+        return fetch_date_time_epoch, table_data
+
     except Exception as e:
         print(f"An error occurred while waiting for elements: {e}")
 
-    # Close the browser session
-    driver.quit()
+    finally:
+        # Close the browser session
+        driver.quit()

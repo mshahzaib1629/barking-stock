@@ -15,11 +15,11 @@ class SendEmail:
         self.sender_email = os.getenv("SENDER_EMAIL")
         
 
-    def notify_stock_announcements(self, receiver_data, announcements=[], subject=None):      
-        receiver_email = receiver_data["email"]
+    def notify_stock_announcements(self, user_announcement, subject=None):      
+        receiver_email = user_announcement["email"]
         data = {
-            "recipient_name": receiver_data["name"],
-            "announcements": announcements
+            "recipient_name": user_announcement["nickName"],
+            "announcements": user_announcement['relevantAnnouncements']
         }
         
         if subject is None:
