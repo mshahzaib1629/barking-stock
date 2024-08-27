@@ -15,7 +15,7 @@ class App:
     def send_email_announcements(self):
         receiver_data = {
             "email": "mshahzaib1629@gmail.com",
-            "name": ""
+            "name": "Shahzaib Minhas"
         }
         email_sender = SendEmail()
         email_sender.notify_stock_announcements(receiver_data, self.announcements)
