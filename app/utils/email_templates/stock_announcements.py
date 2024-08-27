@@ -29,9 +29,16 @@ def _template():
                     vertical-align: middle;
                     font-weight: bold;
                 }
+                .announcement-title {
+                    font-size: 16px;
+                    margin: 5px 0;
+                }
                 .details {
                     font-size: 14px;
                     margin: 5px 0;
+                }
+                .attachment-link {
+                    margin-left: 8px;
                 }
                 .datetime {
                     font-size: 12px;
@@ -51,12 +58,18 @@ def _template():
                 <span class="logo">{{ announcement.SYMBOL }}</span>
                 &mdash;
                 <span class="stock-name">{{ announcement.NAME }}</span>
+                <p class="announcement-title">{{ announcement.TITLE }}</p>
                 <div class="details">
-                    <p><strong>Announcement Title:</strong> {{ announcement.TITLE }}</p>
+                    {% if announcement.VIEW or announcement.PDF %}
                     <p><strong>Attachments:</strong> 
-                        <a href="{{ announcement.VIEW }}" style="color: #1a73e8;">View</a>, 
-                        <a href="{{ announcement.PDF }}" style="color: #1a73e8;">PDF</a>
+                        {% if announcement.VIEW %}
+                            <a href="{{ announcement.VIEW }}" class="attachment-link" style="color: #1a73e8;">View</a>
+                        {% endif %}
+                        {% if announcement.PDF %}
+                            <a href="{{ announcement.PDF }}" class="attachment-link" style="color: #1a73e8;">PDF</a>
+                        {% endif %}
                     </p>
+                    {% endif %}
                     <p class="datetime"><strong>Date and Time:</strong> {{ announcement.DATE }} at {{ announcement.TIME }}</p>
                 </div>
             </div>
