@@ -27,24 +27,26 @@ def scrap_psx_company_announcement_page():
     chrome_options.add_argument("--no-sandbox")  # Prevent sandboxing (necessary for some environments)
     chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
 
-    # Set up Chrome WebDriver with options
-    # ----------------------------------------------------------------------------------------------------------    
-    # We can load from cache or install Chrome Driver
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
-    # The chrome file will be stored in following directories w.r.t os:
-    # Windows
-    # C:\Users\<YourUsername>\.wdm\drivers\chromedriver\<version>
-    # Linux
-    # /home/<YourUsername>/.wdm/drivers/chromedriver/<version>
-    # macOS
-    # /Users/<YourUsername>/.wdm/drivers/chromedriver/<version>
-    # ----------------------------------------------------------------------------------------------------------
-    # Else if chrome driver is placed in chrome_driver directory, we can access it from there
-    # current_file_path = os.path.dirname(os.path.abspath(__file__))
-    # project_root_path = find_project_root(current_file_path)
-    # file_path = os.path.join(project_root_path, 'chrome_driver', 'chromedriver')
-    # driver = webdriver.Chrome(service=ChromeService(file_path), options=chrome_options)
-    # ----------------------------------------------------------------------------------------------------------
+    # Load webdriver
+    driver_file_name = os.getenv("CHROME_DRIVER_FILE_NAME")
+    if driver_file_name:
+        # If chrome driver is placed in chrome_driver directory, we can access it from there
+        current_file_path = os.path.dirname(os.path.abspath(__file__))
+        project_root_path = find_project_root(current_file_path)
+        chrome_driver_path = os.path.join(project_root_path, 'chrome_driver', driver_file_name)
+        print(f"loading chrome driver from {chrome_driver_path}")
+        driver = webdriver.Chrome(service=ChromeService(chrome_driver_path), options=chrome_options)
+    else:
+        # Install and use Chrome Driver
+        print("installing and using chrome driver")
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+        # The chrome file will be stored in following directories w.r.t os:
+        # Windows
+        # C:\Users\<YourUsername>\.wdm\drivers\chromedriver\<version>
+        # Linux
+        # /home/<YourUsername>/.wdm/drivers/chromedriver/<version>
+        # macOS
+        # /Users/<YourUsername>/.wdm/drivers/chromedriver/<version>
     
     # Open the webpage
     driver.get(url)
