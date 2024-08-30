@@ -78,9 +78,7 @@ def _template():
             <p>Please let us know if you have any questions or need further information about any of these announcements. We are here to help!</p>
 
             <p>Best regards,<br>
-            {{ sender_name }}<br>
-            {{ sender_position }}<br>
-            {{ sender_company }}</p>
+            Barking Stock</p>
         </body>
         </html>
 

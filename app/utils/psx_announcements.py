@@ -31,11 +31,18 @@ def scrap_psx_company_announcement_page():
     # ----------------------------------------------------------------------------------------------------------    
     # We can load from cache or install Chrome Driver
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+    # The chrome file will be stored in following directories w.r.t os:
+    # Windows
+    # C:\Users\<YourUsername>\.wdm\drivers\chromedriver\<version>
+    # Linux
+    # /home/<YourUsername>/.wdm/drivers/chromedriver/<version>
+    # macOS
+    # /Users/<YourUsername>/.wdm/drivers/chromedriver/<version>
     # ----------------------------------------------------------------------------------------------------------
-    # Else we can store Chrome Driver at a specified place and always access it
+    # Else if chrome driver is placed in chrome_driver directory, we can access it from there
     # current_file_path = os.path.dirname(os.path.abspath(__file__))
     # project_root_path = find_project_root(current_file_path)
-    # file_path = os.path.join(project_root_path, 'chromium', 'chromium-windows', 'chromedriver.exe')
+    # file_path = os.path.join(project_root_path, 'chrome_driver', 'chromedriver')
     # driver = webdriver.Chrome(service=ChromeService(file_path), options=chrome_options)
     # ----------------------------------------------------------------------------------------------------------
     

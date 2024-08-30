@@ -1,5 +1,6 @@
 **/__pycache__/
 .env
 firebase_service_account.json
-/chromium/*/
-chromium/latest
+
+chrome_driver/*
+!chrome_driver/readMe.txt
