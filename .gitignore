@@ -1,4 +1,5 @@
 **/__pycache__/
 .env
-/bin
 firebase_service_account.json
+/chromium/*/
+chromium/latest

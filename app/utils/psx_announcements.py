@@ -8,6 +8,15 @@ from selenium.webdriver.chrome.options import Options
 from datetime import datetime, timezone
 import os
 
+def find_project_root(current_path, marker_files=('.git', 'setup.py', 'requirements.txt')):
+    # Keep traversing up until we find a known project file or directory
+    while current_path != os.path.dirname(current_path):  # While we haven't reached the top
+        if any(os.path.exists(os.path.join(current_path, marker)) for marker in marker_files):
+            return current_path
+        current_path = os.path.dirname(current_path)
+    
+    return None
+
 def scrap_psx_company_announcement_page():
     # URL of the webpage you want to scrape
     url = "https://dps.psx.com.pk/announcements/companies"  # Replace with your actual URL
@@ -24,8 +33,9 @@ def scrap_psx_company_announcement_page():
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
     # ----------------------------------------------------------------------------------------------------------
     # Else we can store Chrome Driver at a specified place and always access it
-    # project_root = os.path.dirname(os.path.abspath(__file__))
-    # file_path = os.path.join(project_root, 'bin', 'chromedriver.exe')
+    # current_file_path = os.path.dirname(os.path.abspath(__file__))
+    # project_root_path = find_project_root(current_file_path)
+    # file_path = os.path.join(project_root_path, 'chromium', 'chromium-windows', 'chromedriver.exe')
     # driver = webdriver.Chrome(service=ChromeService(file_path), options=chrome_options)
     # ----------------------------------------------------------------------------------------------------------
     
