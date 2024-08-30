@@ -29,18 +29,19 @@ def scrap_psx_company_announcement_page():
 
     # Load webdriver
     driver_file_name = os.getenv("CHROME_DRIVER_FILE_NAME")
-    if driver_file_name:
+    current_file_path = os.path.dirname(os.path.abspath(__file__))
+    project_root_path = find_project_root(current_file_path)
+    chrome_driver_path = os.path.join(project_root_path, 'chrome_driver', driver_file_name)
+    
+    if  os.path.exists(chrome_driver_path):
         # If chrome driver is placed in chrome_driver directory, we can access it from there
-        current_file_path = os.path.dirname(os.path.abspath(__file__))
-        project_root_path = find_project_root(current_file_path)
-        chrome_driver_path = os.path.join(project_root_path, 'chrome_driver', driver_file_name)
         print(f"loading chrome driver from {chrome_driver_path}")
         driver = webdriver.Chrome(service=ChromeService(chrome_driver_path), options=chrome_options)
     else:
         # Install and use Chrome Driver
-        print("installing and using chrome driver")
+        print("installing chrome driver")
         driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
-        # The chrome file will be stored in following directories w.r.t os:
+        # The chrome driver will be stored in following directories w.r.t os:
         # Windows
         # C:\Users\<YourUsername>\.wdm\drivers\chromedriver\<version>
         # Linux
