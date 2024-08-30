@@ -8,7 +8,7 @@ from selenium.webdriver.chrome.options import Options
 from datetime import datetime, timezone
 import os
 
-def find_project_root(current_path, marker_files=('.git', 'setup.py', 'requirements.txt')):
+def _find_project_root(current_path, marker_files=('.git', 'setup.py', 'requirements.txt')):
     # Keep traversing up until we find a known project file or directory
     while current_path != os.path.dirname(current_path):  # While we haven't reached the top
         if any(os.path.exists(os.path.join(current_path, marker)) for marker in marker_files):
@@ -30,10 +30,10 @@ def scrap_psx_company_announcement_page():
     # Load webdriver
     driver_file_name = os.getenv("CHROME_DRIVER_FILE_NAME")
     current_file_path = os.path.dirname(os.path.abspath(__file__))
-    project_root_path = find_project_root(current_file_path)
+    project_root_path = _find_project_root(current_file_path)
     chrome_driver_path = os.path.join(project_root_path, 'chrome_driver', driver_file_name)
     
-    if  os.path.exists(chrome_driver_path):
+    if  driver_file_name and os.path.exists(chrome_driver_path):
         # If chrome driver is placed in chrome_driver directory, we can access it from there
         print(f"loading chrome driver from {chrome_driver_path}")
         driver = webdriver.Chrome(service=ChromeService(chrome_driver_path), options=chrome_options)
