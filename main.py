@@ -4,7 +4,7 @@ import psutil
 
 from app.app import App
 
-def get_announcements():
+def main():
     # Start the timer
     start_time = time.time()
 
@@ -31,9 +31,9 @@ def get_announcements():
     # Get the memory usage after the code block
     memory_usage_after = python_process.memory_info().rss / (1024 * 1024)
 
-    print(f"Memory usage before: {memory_usage_before:.2f} MB")
-    print(f"Memory usage after: {memory_usage_after:.2f} MB")
-    print(f"Memory used by the code block: {memory_usage_after - memory_usage_before:.2f} MB")
-    
+    # print(f"Memory usage before: {memory_usage_before:.2f} MB")
+    # print(f"Memory usage after: {memory_usage_after:.2f} MB")
+    print(f"Memory used: {memory_usage_after - memory_usage_before:.2f} MB")
 
-get_announcements()
+if __name__ == "__main__":
+    main()
