@@ -10,7 +10,7 @@ Barking Stock monitors Companies announcements at PSX Stock Market and notify al
 4. [Guide for Downloading & Installing Chrome](#guide-for-downloading--installing-chrome)
 5. [Running the App Manually](#running-the-app-manually-optional-but-recommended)
 6. [Setup Log File and Executable Script](setup-log-file-and-executable-script)
-7. [Scheduling Executionable Script using Crontab](#scheduling-executionable-script-using-crontab)
+7. [Scheduling Executable Script using Crontab](#scheduling-executable-script-using-crontab)
 
 ## Clonning Project and Initial Setup
 
@@ -151,7 +151,7 @@ And make sure the script is executable.
 chmod +x /path/to/barking-stock/starter_script.sh
 ```
 
-## Scheduling Executionable Script using Crontab
+## Scheduling Executable Script using Crontab
 
 We can set `starter_script.sh` to run as a regular job by adding it in linux crontab.
 
