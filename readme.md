@@ -9,7 +9,7 @@ Barking Stock monitors Companies announcements at PSX Stock Market and notify al
 3. [Package Installation using `requirements.txt`](#package-installation-using-requirementstxt)
 4. [Guide for Downloading & Installing Chrome](#guide-for-downloading--installing-chrome)
 5. [Running the App Manually](#running-the-app-manually-optional-but-recommended)
-6. [Setup Log File and Executionable Script](setup-log-file-and-executionable-script)
+6. [Setup Log File and Executable Script](setup-log-file-and-executable-script)
 7. [Scheduling Executionable Script using Crontab](#scheduling-executionable-script-using-crontab)
 
 ## Clonning Project and Initial Setup
@@ -123,7 +123,7 @@ We can copy that file into the `/path/to/barking-stock/chrome-driver/`
 cp /home/<YourUsername>/.wdm/drivers/chromedriver/<version> /path/to/barking-stock/chrome-driver/
 ```
 
-## Setup Log File and Executionable Script
+## Setup Log File and Executable Script
 
 To store the logs, we need a log file in the project root directory.
 
